@@ -48,6 +48,19 @@ const WEDDING_CONFIG = {
   ]
 };
 
+/* Kakao Talk custom template sharing — enter your app's JavaScript key here.
+ * Use only a JavaScript key; never insert an Admin key, REST API key or secret.
+ * Register the SDK origin and Product Link domain as described in README.md.
+ */
+const KAKAO_TEMPLATE_ID = '138398';
+const KAKAO_SHARE_CONFIG = {
+  javascriptKey: 'a8f547a94bdbe43d2cb716584ae6e433',
+  // Only add keys that match user arguments defined in the saved Kakao template.
+  // For a template argument ${NAME}, add NAME: '효원 & 미래' here.
+  // Leave empty to use the template's saved image, text, and buttons as-is.
+  templateArgs: {}
+};
+
 const $ = (selector) => document.querySelector(selector);
 const KOREA_OFFSET = 9 * 60 * 60 * 1000;
 const DAY = 24 * 60 * 60 * 1000;
@@ -339,6 +352,38 @@ function setupScrollAnimation() {
   });
 }
 
+function setupKakaoShare() {
+  $('#kakao-share-button').addEventListener('click', () => {
+    if (window.location.protocol === 'file:') {
+      showToast('카카오톡 공유는 웹사이트에서 이용해 주세요.');
+      return;
+    }
+    const config = KAKAO_SHARE_CONFIG;
+    const key = config.javascriptKey.trim();
+    if (!key) {
+      showToast('카카오톡 공유를 준비 중입니다. 링크 복사를 이용해 주세요.');
+      return;
+    }
+    const Kakao = window.Kakao;
+    if (!Kakao?.Share?.sendCustom) {
+      showToast('공유 기능을 불러오지 못했습니다. 잠시 후 다시 누르거나 링크 복사를 이용해 주세요.');
+      return;
+    }
+    try {
+      if (!Kakao.isInitialized()) Kakao.init(key);
+      const request = { templateId: KAKAO_TEMPLATE_ID };
+      if (Object.keys(config.templateArgs).length > 0) {
+        request.templateArgs = { ...config.templateArgs };
+      }
+      // Keep this call synchronous within the click so popup handling retains user activation.
+      // The saved template owns the image, title, description, and button links.
+      Kakao.Share.sendCustom(request);
+    } catch {
+      showToast('카카오톡 공유를 열 수 없습니다. 링크 복사를 이용해 주세요.');
+    }
+  });
+}
+
 function initInvitation() {
   document.querySelectorAll('dialog').forEach(prepareDialog);
   $('#copy-dialog-close').addEventListener('click', () => $('#copy-dialog').close());
@@ -358,6 +403,7 @@ function initInvitation() {
   setupLocation();
   renderAccounts();
   setupMusic();
+  setupKakaoShare();
   setupScrollAnimation();
 }
 

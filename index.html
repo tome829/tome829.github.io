@@ -8,6 +8,8 @@
   <title>효원 & 미래 · 함께 피어나는 날</title>
   <link rel="icon" href="./images/floral-placeholder.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./css/style.css">
+  <!-- Official Kakao SDK 2.8.4. Async loading keeps the invitation independent of the CDN. -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.4/kakao.min.js" integrity="sha384-BGX7Wb16GmRFagri4bLJV2DgipVZaU2AI812GZtHtHzzDQJnfHasDXN5houxv45w" crossorigin="anonymous" async></script>
   <script src="./js/main.js" defer></script>
   <!-- Open Graph  -->
   <meta property="og:type" content="website">
@@ -80,7 +82,11 @@
       <div class="account-groups" id="account-groups"></div><p class="demo-note">본 청첩장의 인물·장소·연락처·계좌는 모두 테스트용입니다.</p>
     </section>
 
-    <section class="section share-section reveal" aria-labelledby="share-title"><span class="eyebrow">SHARE OUR HAPPINESS</span><h2 id="share-title">기쁜 소식을 나누어요</h2><button class="primary-button" id="share-button" type="button"><span aria-hidden="true">↗</span> 청첩장 링크 복사</button></section>
+    <section class="section share-section reveal" aria-labelledby="share-title">
+      <span class="eyebrow">SHARE OUR HAPPINESS</span><h2 id="share-title">기쁜 소식을 나누어요</h2>
+      <button class="primary-button" id="share-button" type="button"><span aria-hidden="true">↗</span> 청첩장 링크 복사</button>
+      <div><button class="primary-button" id="kakao-share-button" type="button"><span aria-hidden="true">↗</span> 카카오톡으로 공유</button></div>
+    </section>
     <footer class="footer"><span class="footer-flower" aria-hidden="true">❋</span><p>저희의 시작을 축복해 주셔서 감사합니다.<br>아름다운 날, 소중한 마음으로 뵙겠습니다.</p><span class="footer-names"><span data-field="groom.givenName">도윤</span> <i>&</i> <span data-field="bride.givenName">서연</span></span><small>MADE WITH LOVE · <span data-date="year">2027</span></small></footer>
   </main>
 
