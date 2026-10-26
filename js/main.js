@@ -2,8 +2,8 @@
 
 /* Edit this object to personalize the invitation. All current values are fictional. */
 const WEDDING_CONFIG = {
-  groom: { name: '김효원', givenName: '효원', parents: '김병석 · 이유미', phone: '010-0000-0000' },
-  bride: { name: '한미래', givenName: '미래', parents: '한현제 · 최은희', phone: '010-0000-0000' },
+  groom: { name: '김효원', givenName: '효원', parents: '김병석 · 이유미', phone: '010-4207-7526' },
+  bride: { name: '한미래', givenName: '미래', parents: '한현재 · 이현숙', phone: '010-4057-2805' },
   // Always include the Korean timezone (+09:00).
   date: '2027-05-22T11:00:00+09:00',
   greeting: '서로의 작은 일상에 스며들어\n가장 편안한 안식처가 된 두 사람.\n\n이제 같은 곳을 바라보며\n삶의 모든 계절을 함께하려 합니다.\n\n저희의 첫걸음에 함께하시어\n따뜻한 축복을 나누어 주세요.',
@@ -13,9 +13,10 @@ const WEDDING_CONFIG = {
     address: '경기도 안산시 단원구 광덕1로171',
     mapQuery: 'AW 컨벤션',
     transport: [
-      { title: '지하철', text: '예시선 예시역 2번 출구에서 도보 5분\n※ 실제 노선이 아닌 교통 안내 예시입니다.' },
-      { title: '버스', text: '예시웨딩홀 정류장 하차\n예시 간선 000번 · 지선 0000번' },
-      { title: '자가용 · 주차', text: '건물 지하 주차장 이용 · 하객 2시간 무료\n주차 및 교통 정보는 모두 테스트용입니다.' }
+      { title: '지하철', text: '· 4호선 고잔역 2번 출구 \n ※ 셔틀버스는 예식 2시간 후까지 운행합니다. \n (셔틀 버스 5분~7분 간격 수시운행 / 도보 15~20분' },
+      { title: '버스', text: '· 안산 문화숲의 광장 하차 88번,\n· 동남레이크빌 하차 99-1번, 3100번\n· 대림호수공원 아파트 하차 77번, 98번, 3번' },
+      { title: '자가용 · 주차', text: '· 서울방향\n안산JC - 안산 IC - 법원검찰청 - AW컨벤션\n· 수원방향\n수인산업도로 - 법원검찰청 - AW컨벤션\n· 인천방향\n서안산IC - 법원검찰청 - AW컨벤션\n· 영동고속도로\n안산IC - 법원검찰청 - AW컨벤션\n서해안고속도로\n매송IC - 해안로(호수공원) - 시청방향 - AW컨벤션' },
+      { title: '주차', text: '· 제1주차장  AW컨벤션 지상,지하 1층,2층\n· 제 2주차장  양지주차타워(AW컨벤션주차타워)\n· 제3주차장  AW컨벤션 정문 맞은편 공영주차장\n· 제4주차장  MK주차타워' },
     ]
   },
   // Leave paths empty to show the built-in illustration. Missing files also fall back.
@@ -37,8 +38,8 @@ const WEDDING_CONFIG = {
     ] },
     { title: '신부측 계좌번호', members: [
       { relation: '신부', name: '한미래', bank: '예시은행', number: '000-0000-0003' },
-      { relation: '아버지', name: '한현제', bank: '예시은행', number: '000-0000-0004' },
-      { relation: '어머니', name: '최은희', bank: '예시은행', number: '000-0000-0005' }
+      { relation: '아버지', name: '한현재', bank: '예시은행', number: '000-0000-0004' },
+      { relation: '어머니', name: '이현숙', bank: '예시은행', number: '000-0000-0005' }
     ] }
   ]
 };
