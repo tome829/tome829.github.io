@@ -29,7 +29,7 @@ const WEDDING_CONFIG = {
     { src: '', alt: '정원에서 함께하는 두 사람', caption: '차곡차곡 쌓아 온 마음' },
     { src: '', alt: '노을 아래 함께 선 두 사람', caption: '우리의 모든 내일을 약속하며' }
   ],
-  musicSrc: '', // Example: './music/wedding.mp3' — never autoplayed.
+  musicSrc: './music/wedding.mp3', // Example: './music/wedding.mp3' — never autoplayed.
   accounts: [
     { title: '신랑측 계좌번호', members: [
       { relation: '신랑', name: '김효원', bank: '예시은행', number: '000-0000-0000' },
