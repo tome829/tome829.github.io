@@ -8,24 +8,27 @@ const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'js/main.js'), 'utf8');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 
-function fixture({ key = 'test-javascript-key', protocol = 'https:', sdk = true, failure, templateArgs = {} } = {}) {
+function fixture({ key = 'test-javascript-key', protocol = 'https:', sdk = true, failure, templateArgs = {}, initiallyInitialized = false } = {}) {
   const calls = [];
-  let initialized = false;
+  let initialized = initiallyInitialized;
   let click;
   const button = { addEventListener(type, handler) { if (type === 'click') click = handler; } };
   const toast = { textContent: '', classList: { add() {}, remove() {} } };
+  const shareModule = { sendCustom(value) {
+    if (failure === 'share') throw new Error('SDK request failed');
+    calls.push({ type: 'share', value: JSON.parse(JSON.stringify(value)) });
+  } };
   const Kakao = {
     isInitialized: () => initialized,
     init(value) {
       calls.push({ type: 'init', value });
       if (failure === 'init') throw new Error('Invalid JavaScript key');
       initialized = true;
-    },
-    Share: { sendCustom(value) {
-      if (failure === 'share') throw new Error('SDK request failed');
-      calls.push({ type: 'share', value: JSON.parse(JSON.stringify(value)) });
-    } }
+      // Match the real SDK: Share does not exist until init completes.
+      if (failure !== 'module') this.Share = shareModule;
+    }
   };
+  if (initiallyInitialized) Kakao.Share = shareModule;
   const context = vm.createContext({
     URL,
     window: { location: { protocol }, Kakao: sdk ? Kakao : undefined },
@@ -65,6 +68,13 @@ test('repeated clicks reuse SDK initialization', () => {
   assert.equal(calls.filter(call => call.type === 'share').length, 2);
 });
 
+test('an SDK initialized elsewhere can share without being initialized again', () => {
+  const { click, calls } = fixture({ initiallyInitialized: true });
+  click();
+  assert.equal(calls.filter(call => call.type === 'init').length, 0);
+  assert.equal(calls.filter(call => call.type === 'share').length, 1);
+});
+
 test('an unconfigured key gives feedback without invoking Kakao', () => {
   const { click, calls, toast } = fixture({ key: '   ' });
   click();
@@ -85,7 +95,7 @@ test('local file mode does not open the sharing service', () => {
   assert.match(toast.textContent, /웹사이트/);
 });
 
-for (const failure of ['init', 'share']) {
+for (const failure of ['init', 'module', 'share']) {
   test(`${failure} errors stay within the share button and give feedback`, () => {
     const { click, toast } = fixture({ failure });
     assert.doesNotThrow(click);
@@ -93,9 +103,15 @@ for (const failure of ['init', 'share']) {
   });
 }
 
-test('official version-pinned SDK uses SRI and async loading; existing share UI and OG remain', () => {
-  assert.equal([...html.matchAll(/<script\b[^>]*src="[^"]*kakao_js_sdk[^\"]*"/g)].length, 1, 'SDK is loaded exactly once');
-  assert.match(html, /src="https:\/\/t1\.kakaocdn\.net\/kakao_js_sdk\/2\.8\.4\/kakao\.min\.js"[^>]+integrity="sha384-[^"]+"[^>]+crossorigin="anonymous"[^>]+async/);
+test('verified official SDK loads once from local assets before main.js; existing UI and OG remain', () => {
+  const sdkTags = [...html.matchAll(/<script\b[^>]*src="[^"]*kakao[^\"]*"[^>]*>/g)];
+  assert.equal(sdkTags.length, 1, 'SDK is loaded exactly once');
+  assert.match(sdkTags[0][0], /src="\.\/js\/vendor\/kakao-2\.8\.4\.min\.js"[^>]+integrity="sha384-[^"]+"[^>]+defer/);
+  assert.ok(!sdkTags[0][0].includes('async'));
+  assert.ok(html.indexOf('./js/vendor/kakao-2.8.4.min.js') < html.indexOf('./js/main.js'));
+  const sdk = fs.readFileSync(path.join(root, 'js/vendor/kakao-2.8.4.min.js'));
+  const integrity = 'sha384-' + require('node:crypto').createHash('sha384').update(sdk).digest('base64');
+  assert.equal(integrity, 'sha384-BGX7Wb16GmRFagri4bLJV2DgipVZaU2AI812GZtHtHzzDQJnfHasDXN5houxv45w');
   assert.match(html, /id="share-button"/);
   assert.match(html, /id="kakao-share-button"/);
   for (const property of ['og:type', 'og:title', 'og:description', 'og:image', 'og:url']) {

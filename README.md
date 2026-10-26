@@ -22,7 +22,8 @@ wedding_invitation/
 ├── css/
 │   └── style.css                 # 색상, 레이아웃, 반응형, 애니메이션
 ├── js/
-│   └── main.js                   # 설정 데이터와 모든 인터랙션
+│   ├── main.js                   # 설정 데이터와 모든 인터랙션
+│   └── vendor/kakao-2.8.4.min.js   # 원본 무결성을 검증한 공식 Kakao SDK
 ├── images/
 │   ├── floral-placeholder.svg    # 로컬 꽃 일러스트 플레이스홀더
 │   └── kakao-cover.jpg           # 카카오톡 피드 공유 대표 이미지 (기존 파일)
@@ -144,8 +145,9 @@ templateArgs: {
 - 템플릿에 업로드하거나 지정한 이미지가 사용됩니다. `images/kakao-cover.jpg`는 보관되어 있지만 코드에서 이 파일의 URL을 별도로 전송하지 않습니다.
 - 템플릿의 모바일 웹·PC 웹 링크와 버튼 링크가 `https://tome829.github.io/wedding_invitation/`로 설정되어 있는지 확인하세요. 코드에서 이동 URL을 덮어쓰지 않습니다.
 - 실제 카드의 사진 크롭·여백·크기는 저장된 템플릿과 카카오톡 앱 버전에 따라 달라집니다.
-- 2026-10-26에 [공식 다운로드 페이지](https://developers.kakao.com/docs/ko/javascript/download)에서 확인한 최신 SDK **2.8.4**를 공식 CDN과 SRI 무결성 해시로 불러옵니다. 버전을 바꿀 때 URL과 `integrity` 값을 함께 교체하세요.
-- SDK는 기존 `index.html`의 스크립트 한 개로만 비동기 로딩하며 클릭할 때 초기화 여부를 확인합니다. 별도 스크립트를 삽입하거나 SDK를 중복 초기화하지 않습니다. 공유 요청은 팝업 차단을 줄이도록 클릭 핸들러에서 동기적으로 호출합니다.
+- 2026-10-26에 [공식 다운로드 페이지](https://developers.kakao.com/docs/ko/javascript/download)에서 확인한 최신 SDK **2.8.4**를 공식 CDN에서 받아 `js/vendor/kakao-2.8.4.min.js`에 원본 그대로 보관합니다. 공식 SRI 해시와 다운로드한 파일의 SHA-384 값이 일치하는지 검증했습니다. 버전을 바꿀 때 파일과 `integrity` 값을 함께 교체하세요.
+- `index.html`에서 로컬 SDK와 `main.js`를 모두 `defer`로 순서대로 로드합니다. SDK 스크립트는 하나만 있으며 외부 CDN의 다운로드 지연이나 차단에 의존하지 않습니다. GitHub Pages 업로드 시 `js/vendor/`도 함께 올려 주세요.
+- 버튼을 클릭할 때 SDK 초기화 여부를 확인하며 중복 초기화하지 않습니다. 공유 요청은 팝업 차단을 줄이도록 클릭 핸들러에서 동기적으로 호출합니다. 실제 공유 API와 카카오톡 연결에는 여전히 인터넷이 필요합니다.
 
 ### 5. 테스트 방법
 
@@ -160,6 +162,14 @@ templateArgs: {
 7. 키가 비어 있으면 준비 중 안내가, SDK 로딩이 실패하면 링크 복사를 권하는 안내가 표시됩니다. 둘 다 다른 청첩장 기능은 계속 동작합니다.
 
 자동 검증은 SDK 요청과 오류 처리를 확인하며, 카카오에 저장된 템플릿의 실제 내용·앱 소유 관계·도메인 설정·전송 결과는 직접 확인해야 합니다. 템플릿 오류가 나오면 ID, 템플릿을 등록한 앱의 키, 사용 목적, 저장 여부, 사용자 인자를 확인하세요. 도메인 오류가 나오면 SDK 실행 도메인과 제품 링크 도메인을 각각 확인하세요. SDK에서 동기적으로 발생한 오류는 안내하지만 별도 카카오 창에서의 인증 오류나 사용자의 전송 취소는 전송 성공으로 판정하지 않습니다. 자세한 API 규격은 [카카오톡 공유 JavaScript 문서](https://developers.kakao.com/docs/ko/kakaotalk-share/js-link)를 참고하세요.
+
+### “공유 기능을 불러오지 못했습니다”가 나올 때
+
+공식 SDK는 스크립트 로딩 시 `Kakao.init`과 `Kakao.isInitialized`를 제공하고, `Kakao.init(JavaScript키)`를 호출한 뒤 `Kakao.Share` 모듈을 생성합니다. 초기화 전에 `Share.sendCustom` 유무를 검사하면 정상 SDK에서도 잘못된 로딩 오류가 표시됩니다. 현재 코드는 SDK 기본 함수 확인 → 필요 시 초기화 → Share 모듈 확인 → sendCustom 호출 순서로 수정했습니다.
+
+현재 이 문구는 `Kakao.init` 또는 `Kakao.isInitialized`를 찾지 못할 때만 표시합니다. 카카오 요청을 보내기 전 SDK 로딩 검사 단계이며, 로컬 실행 자체나 템플릿 ID가 이 문구의 직접적인 원인은 아닙니다.
+
+현재는 CDN 스크립트 대신 공식 SDK의 로컬 복사본을 사용하며 로딩 순서를 보장합니다. VS Code에서 저장한 뒤 Ctrl+F5로 새로고침하세요. 계속 발생한다면 개발자 도구의 Network에서 `js/vendor/kakao-2.8.4.min.js`가 200으로 응답하는지, Console에 무결성 또는 스크립트 실행 오류가 있는지 확인합니다. `main.js`와 같은 서버에서 파일을 제공해야 합니다.
 
 ## 구현 기능 및 접근성
 

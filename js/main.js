@@ -52,7 +52,7 @@ const WEDDING_CONFIG = {
  * Use only a JavaScript key; never insert an Admin key, REST API key or secret.
  * Register the SDK origin and Product Link domain as described in README.md.
  */
-const KAKAO_TEMPLATE_ID = '138398';
+const KAKAO_TEMPLATE_ID = 138398;
 const KAKAO_SHARE_CONFIG = {
   javascriptKey: 'a8f547a94bdbe43d2cb716584ae6e433',
   // Only add keys that match user arguments defined in the saved Kakao template.
@@ -365,12 +365,14 @@ function setupKakaoShare() {
       return;
     }
     const Kakao = window.Kakao;
-    if (!Kakao?.Share?.sendCustom) {
+    // The official SDK creates Share during init(), not when the script loads.
+    if (typeof Kakao?.init !== 'function' || typeof Kakao?.isInitialized !== 'function') {
       showToast('공유 기능을 불러오지 못했습니다. 잠시 후 다시 누르거나 링크 복사를 이용해 주세요.');
       return;
     }
     try {
       if (!Kakao.isInitialized()) Kakao.init(key);
+      if (typeof Kakao.Share?.sendCustom !== 'function') throw new Error('Kakao Share unavailable after initialization');
       const request = { templateId: KAKAO_TEMPLATE_ID };
       if (Object.keys(config.templateArgs).length > 0) {
         request.templateArgs = { ...config.templateArgs };
