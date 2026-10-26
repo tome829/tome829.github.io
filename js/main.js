@@ -8,8 +8,8 @@ const WEDDING_CONFIG = {
   date: '2027-05-22T11:00:00+09:00',
   greeting: '서로의 작은 일상에 스며들어\n가장 편안한 안식처가 된 두 사람.\n\n이제 같은 곳을 바라보며\n삶의 모든 계절을 함께하려 합니다.\n\n저희의 첫걸음에 함께하시어\n따뜻한 축복을 나누어 주세요.',
   venue: {
-    name: 'AW 컨벤션', hall: '6층 테라스볼륨',
-    shortName: 'AW 컨벤션 · 6층 테라스볼륨',
+    name: '안산 AW 컨벤션', hall: '6층 테라스볼룸',
+    shortName: '안산 AW 컨벤션 · 6층 테라스볼룸',
     address: '경기도 안산시 단원구 광덕1로 171',
     mapQuery: '경기도 안산시 단원구 광덕1로 171',
     // Paste each venue's shared place URL here to open that exact location.
