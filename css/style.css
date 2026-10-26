@@ -8,8 +8,8 @@
 .cover h1{margin-top:12px;line-height:1.5}
 .cover-subtitle{margin-top:6px}
 .cover-art{
-  height:clamp(160px,calc(100vh - 330px),340px);
-  height:clamp(160px,calc(100svh - 330px),340px);
+  height:clamp(190px,calc(100vh - 300px),370px);
+  height:clamp(190px,calc(100svh - 300px),370px);
   aspect-ratio:auto;
   margin-top:22px;
 }
