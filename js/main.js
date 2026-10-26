@@ -15,7 +15,7 @@ const WEDDING_CONFIG = {
     transport: [
       { title: '지하철', text: '· 4호선 고잔역 2번 출구 \n ※ 셔틀버스는 예식 2시간 후까지 운행합니다. \n (셔틀 버스 5분~7분 간격 수시운행 / 도보 15~20분' },
       { title: '버스', text: '· 안산 문화숲의 광장 하차 88번,\n· 동남레이크빌 하차 99-1번, 3100번\n· 대림호수공원 아파트 하차 77번, 98번, 3번' },
-      { title: '자가용 · 주차', text: '· 서울방향\n안산JC - 안산 IC - 법원검찰청 - AW컨벤션\n· 수원방향\n수인산업도로 - 법원검찰청 - AW컨벤션\n· 인천방향\n서안산IC - 법원검찰청 - AW컨벤션\n· 영동고속도로\n안산IC - 법원검찰청 - AW컨벤션\n서해안고속도로\n매송IC - 해안로(호수공원) - 시청방향 - AW컨벤션' },
+      { title: '자가용 · 주차', text: '· 서울방향\n 안산JC - 안산 IC - 법원검찰청 - AW컨벤션\n· 수원방향\n 수인산업도로 - 법원검찰청 - AW컨벤션\n· 인천방향\n 서안산IC - 법원검찰청 - AW컨벤션\n· 영동고속도로\n 안산IC - 법원검찰청 - AW컨벤션\n· 서해안고속도로\n 매송IC - 해안로(호수공원) - 시청방향 - AW컨벤션' },
       { title: '주차', text: '· 제1주차장  AW컨벤션 지상,지하 1층,2층\n· 제 2주차장  양지주차타워(AW컨벤션주차타워)\n· 제3주차장  AW컨벤션 정문 맞은편 공영주차장\n· 제4주차장  MK주차타워' },
     ]
   },
@@ -136,7 +136,8 @@ function renderInformation() {
   document.querySelectorAll('[data-contact]').forEach((button) => {
     button.addEventListener('click', () => {
       const person = WEDDING_CONFIG[button.dataset.contact];
-      showToast(`${person.name} · ${person.phone} (테스트 연락처)`);
+      copyText(person.phone, `${person.name} · ${person.phone} 연락처를 복사했습니다.`);
+      showToast(`${person.name} · ${person.phone} 연락처를 복사했습니다.`);
     });
   });
 }
