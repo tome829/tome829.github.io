@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f5ee">
+  <meta name="description" content="효원과 미래, 함께 피어나는 날에 초대합니다. 테스트용 모바일 청첩장입니다.">
+  <title>효원 & 미래 · 함께 피어나는 날</title>
+  <link rel="icon" href="./images/floral-placeholder.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#invitation">초대의 글로 건너뛰기</a>
+  <main class="invitation">
+    <header class="cover" aria-labelledby="cover-title">
+      <div class="cover-top"><span>THE WEDDING OF</span><button class="music-button" id="music-toggle" type="button" aria-label="배경음악 재생" aria-pressed="false"><span class="music-symbol" aria-hidden="true">♫</span><span id="music-label">BGM OFF</span></button></div>
+      <h1 id="cover-title"><span data-field="groom.name">김효원</span><span class="name-divider" aria-hidden="true">&</span><span data-field="bride.name">한미래</span></h1>
+      <p class="cover-subtitle">서로의 계절이 되어, 함께 피어나는 날</p>
+      <div class="cover-art media-frame" id="cover-image">
+        <div class="cover-art-caption" aria-hidden="true"><span class="script-text">Our beginning</span><span>WITH YOU, ALWAYS</span></div>
+      </div>
+      <div class="cover-date"><span class="date-ornament" aria-hidden="true">✳</span><time data-date="numeric" datetime="2027-05-22T14:00:00+09:00">2027. 05. 22. SAT · AM 11:00</time><p data-field="venue.shortName">AW 컨벤션 · 6층 테라스볼륨</p></div>
+      <a class="scroll-hint" href="#invitation" aria-label="초대의 글 보기"><span>SCROLL TO OUR STORY</span><span aria-hidden="true">↓</span></a>
+    </header>
+
+    <section class="section intro-section reveal" id="invitation" aria-labelledby="invitation-title">
+      <span class="eyebrow">INVITATION</span><h2 id="invitation-title">소중한 분들을 초대합니다</h2>
+      <div class="little-flower" aria-hidden="true">❋</div>
+      <p class="poem" id="greeting">서로의 작은 일상에 스며들어<br>가장 편안한 안식처가 된 두 사람.<br><br>이제 같은 곳을 바라보며<br>삶의 모든 계절을 함께하려 합니다.<br><br>저희의 첫걸음에 함께하시어<br>따뜻한 축복을 나누어 주세요.</p>
+      <div class="family-lines"><p><span data-field="groom.parents">김병석 · 이유미</span><span class="family-relation">의 아들</span><strong data-field="groom.givenName">효원</strong></p><p><span data-field="bride.parents">한현제 · 최은희</span><span class="family-relation">의 딸</span><strong data-field="bride.givenName">미래</strong></p></div>
+      <div class="contact-actions"><button type="button" class="text-button" data-contact="groom">신랑에게 연락하기 <span aria-hidden="true">↗</span></button><span class="vertical-line" aria-hidden="true"></span><button type="button" class="text-button" data-contact="bride">신부에게 연락하기 <span aria-hidden="true">↗</span></button></div>
+    </section>
+
+    <section class="section date-section reveal" id="ceremony" aria-labelledby="date-title">
+      <span class="eyebrow">OUR WEDDING DAY</span><h2 id="date-title">우리의 시작을 함께해 주세요</h2>
+      <p class="ceremony-date"><time data-date="korean" datetime="2027-05-22T14:00:00+09:00">2027년 5월 22일 토요일 오전 11시</time></p>
+      <div class="calendar"><p class="calendar-month" id="calendar-month">May <span>2027</span></p><table aria-label="2027년 5월 예식 달력" id="calendar-table"><thead><tr><th scope="col">일</th><th scope="col">월</th><th scope="col">화</th><th scope="col">수</th><th scope="col">목</th><th scope="col">금</th><th scope="col">토</th></tr></thead><tbody id="calendar-body"></tbody></table></div>
+      <div class="countdown" aria-label="예식까지 남은 시간"><div><span id="count-days">—</span><small>DAYS</small></div><span class="count-separator" aria-hidden="true">:</span><div><span id="count-hours">—</span><small>HOURS</small></div><span class="count-separator" aria-hidden="true">:</span><div><span id="count-minutes">—</span><small>MINUTES</small></div><span class="count-separator" aria-hidden="true">:</span><div><span id="count-seconds">—</span><small>SECONDS</small></div></div>
+      <p class="dday-message" id="dday-message" role="status">두 사람의 결혼식에 초대합니다.</p>
+    </section>
+
+    <section class="section gallery-section reveal" id="gallery" aria-labelledby="gallery-title">
+      <span class="eyebrow">OUR MOMENTS</span><h2 id="gallery-title">함께라서 빛나는 순간</h2><p class="section-description">차곡차곡 쌓아 온, 우리의 사랑스러운 기록</p>
+      <div class="gallery-grid" id="gallery-grid"></div><p class="gallery-note">사진을 누르면 크게 볼 수 있어요</p>
+    </section>
+
+    <section class="section location-section reveal" id="location" aria-labelledby="location-title">
+      <span class="eyebrow">LOCATION</span><h2 id="location-title">오시는 길</h2><h3 class="venue-name" data-field="venue.name">라온 가든 웨딩</h3><p class="venue-hall" data-field="venue.hall">2층 가든홀</p><address data-field="venue.address">서울특별시 예시구 사랑로 22 (테스트 주소)</address>
+      <div class="map-art" role="img" aria-label="실제 지도가 아닌 예식장 위치 안내용 일러스트"><span class="map-park" aria-hidden="true"></span><span class="map-block block-one" aria-hidden="true"></span><span class="map-block block-two" aria-hidden="true"></span><span class="map-road road-one" aria-hidden="true"></span><span class="map-road road-two" aria-hidden="true"></span><span class="map-road road-three" aria-hidden="true"></span><span class="map-station">예시역 2번 출구</span><span class="map-pin"><span aria-hidden="true">♡</span><strong data-field="venue.name">라온 가든 웨딩</strong></span><span class="map-caption">위치 안내 예시 · 실제 지도는 아래에서 확인해 주세요</span></div>
+      <nav class="map-links" aria-label="지도 서비스"><a id="naver-map" href="https://map.naver.com/" target="_blank" rel="noopener noreferrer">네이버 지도 <span aria-hidden="true">↗</span></a><a id="kakao-map" href="https://map.kakao.com/" target="_blank" rel="noopener noreferrer">카카오맵 <span aria-hidden="true">↗</span></a><button type="button" id="copy-address">주소 복사 <span aria-hidden="true">▢</span></button></nav>
+      <div class="transport-list" id="transport-list"></div>
+    </section>
+
+    <section class="section accounts-section reveal" id="accounts" aria-labelledby="accounts-title">
+      <span class="eyebrow">WITH LOVE</span><h2 id="accounts-title">마음 전하실 곳</h2><p class="section-description">멀리서도 마음을 전해 주시는 모든 분께<br>진심으로 감사드립니다.</p>
+      <div class="account-groups" id="account-groups"></div><p class="demo-note">본 청첩장의 인물·장소·연락처·계좌는 모두 테스트용입니다.</p>
+    </section>
+
+    <section class="section share-section reveal" aria-labelledby="share-title"><span class="eyebrow">SHARE OUR HAPPINESS</span><h2 id="share-title">기쁜 소식을 나누어요</h2><button class="primary-button" id="share-button" type="button"><span aria-hidden="true">↗</span> 청첩장 링크 복사</button></section>
+    <footer class="footer"><span class="footer-flower" aria-hidden="true">❋</span><p>저희의 시작을 축복해 주셔서 감사합니다.<br>아름다운 날, 소중한 마음으로 뵙겠습니다.</p><span class="footer-names"><span data-field="groom.givenName">도윤</span> <i>&</i> <span data-field="bride.givenName">서연</span></span><small>MADE WITH LOVE · <span data-date="year">2027</span></small></footer>
+  </main>
+
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-title"><div class="lightbox-toolbar"><h2 id="lightbox-title">우리의 순간</h2><button class="icon-button" id="lightbox-close" type="button" aria-label="사진 확대 보기 닫기">×</button></div><div class="lightbox-image media-frame" id="lightbox-image"></div><div class="lightbox-navigation"><button class="icon-button" id="photo-prev" type="button" aria-label="이전 사진">←</button><span id="photo-counter" aria-live="polite">1 / 6</span><button class="icon-button" id="photo-next" type="button" aria-label="다음 사진">→</button></div><p class="lightbox-caption" id="photo-caption"></p></dialog>
+  <dialog class="copy-dialog" id="copy-dialog" aria-labelledby="copy-title"><h2 id="copy-title">직접 복사해 주세요</h2><p>자동 복사를 사용할 수 없어 내용을 준비했어요.</p><label for="copy-value">복사할 내용</label><input id="copy-value" type="text" readonly><button type="button" class="primary-button" id="copy-dialog-close">닫기</button></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <audio id="background-music" loop preload="none"></audio>
+  <noscript><p class="noscript-note">사진 확대, 달력, 복사 기능을 사용하려면 JavaScript를 켜 주세요. 예식 기본 정보는 본문에서 확인할 수 있습니다.</p></noscript>
+</body>
+</html>

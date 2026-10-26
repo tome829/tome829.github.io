@@ -1,0 +1,15 @@
+# Local/editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.log
+# Credentials and local environment
+.env
+.env.*
+!.env.example
+# Optional development tools and verification artifacts
+node_modules/
+coverage/
+.local-preview/
