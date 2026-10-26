@@ -10,8 +10,12 @@ const WEDDING_CONFIG = {
   venue: {
     name: 'AW 컨벤션', hall: '6층 테라스볼륨',
     shortName: 'AW 컨벤션 · 6층 테라스볼륨',
-    address: '경기도 안산시 단원구 광덕1로171',
-    mapQuery: 'AW 컨벤션',
+    address: '경기도 안산시 단원구 광덕1로 171',
+    mapQuery: '경기도 안산시 단원구 광덕1로 171',
+    // Paste each venue's shared place URL here to open that exact location.
+    // Leave empty to search by the full address above.
+    naverMapUrl: 'https://map.naver.com/p/search/%EC%95%88%EC%82%B0aw%EC%BB%A8%EB%B2%A4%EC%85%98/place/33861048?c=15.00,0,0,0,dh&placePath=%2Fhome%3Fbk_query%3D%EC%95%88%EC%82%B0aw%EC%BB%A8%EB%B2%A4%EC%85%98%26entry%3Dbmp%26from%3Dmap%26fromPanelNum%3D2%26timestamp%3D202610261604%26locale%3Dko%26svcName%3Dmap_pcv5%26searchText%3D%EC%95%88%EC%82%B0aw%EC%BB%A8%EB%B2%A4%EC%85%98',
+    kakaoMapUrl: 'https://map.kakao.com/?q=AW+%EC%BB%A8%EB%B2%A4%EC%85%98',
     transport: [
       { title: '지하철', text: '· 4호선 고잔역 2번 출구 \n ※ 셔틀버스는 예식 2시간 후까지 운행합니다. \n (셔틀 버스 5분~7분 간격 수시운행 / 도보 15~20분' },
       { title: '버스', text: '· 안산 문화숲의 광장 하차 88번,\n· 동남레이크빌 하차 99-1번, 3100번\n· 대림호수공원 아파트 하차 77번, 98번, 3번' },
@@ -241,9 +245,9 @@ function setupGallery() {
 
 function setupLocation() {
   const venue = WEDDING_CONFIG.venue;
-  const query = encodeURIComponent(venue.mapQuery);
-  $('#naver-map').href = `https://map.naver.com/p/search/${query}`;
-  $('#kakao-map').href = `https://map.kakao.com/link/search/${query}`;
+  const query = encodeURIComponent(venue.mapQuery || venue.address);
+  $('#naver-map').href = venue.naverMapUrl?.trim() || `https://map.naver.com/p/search/${query}`;
+  $('#kakao-map').href = venue.kakaoMapUrl?.trim() || `https://map.kakao.com/link/search/${query}`;
   $('#copy-address').addEventListener('click', () => copyText(venue.address, '예식장 주소를 복사했습니다.'));
   venue.transport.forEach((item) => {
     const row = element('div', 'transport-item');
